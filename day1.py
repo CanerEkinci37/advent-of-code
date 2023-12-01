@@ -1,19 +1,23 @@
 # Day 1-1
 
 
+def find_digits_and_calculate_real_value(text):
+    digit_list = []
+    for char in text:
+        if char.isdigit():
+            digit_list.append(char)
+
+    if len(digit_list) == 1:
+        return int(digit_list[0] * 2)
+    return int(digit_list[0] + digit_list[-1])
+
+
 def calculate_calibration_with_just_numbers(line_list):
     calibration_value = 0
     for text in line_list:
-        digit_list = []
         text = text.strip()
-        for char in text:
-            if char.isdigit():
-                digit_list.append(char)
+        calibration_value += find_digits_and_calculate_real_value(text)
 
-        if len(digit_list) == 1:
-            calibration_value += int(digit_list[0] * 2)
-        else:
-            calibration_value += int(digit_list[0] + digit_list[-1])
     return calibration_value
 
 
@@ -25,10 +29,9 @@ print(calculate_calibration_with_just_numbers(data))
 # Day 1-2
 
 
-def calculate_value(line_list):
+def calculate_calibration_with_numbers_and_numlikes(line_list):
     calibration_value = 0
     for text in line_list:
-        digit_list = []
         text = (
             text.strip()
             .replace("one", "o1e")
@@ -42,18 +45,10 @@ def calculate_value(line_list):
             .replace("nine", "n9e")
         )
 
-        for char in text:
-            if char.isdigit():
-                digit_list.append(char)
-
-        if len(digit_list) == 1:
-            calibration_value += int(digit_list[0] * 2)
-        else:
-            calibration_value += int(digit_list[0] + digit_list[-1])
-
+        calibration_value += find_digits_and_calculate_real_value(text)
     return calibration_value
 
 
 with open("input_files\\day1_2.txt") as f:
     data = f.readlines()
-print(calculate_value(data))
+print(calculate_calibration_with_numbers_and_numlikes(data))
